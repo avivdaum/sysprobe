@@ -33,12 +33,13 @@ You must pick any 3 tasks to implement in part 1, and 1 task in part 2 (doing mo
 
 Give the user of sysprobe information about its hardware using sysfs.
 
-Find useful data about temperature and CPU, and display print it in json format.  
+Find useful data about temperature and CPU, and display print it in valid JSON (no need to match a specific format).  
 `Exampmle` 
 ```bash
+# Command
 sysprobe get-sys-data
 
-# Output:
+# Possible output
 {
  "thermal": [{"name": "zone0", "temp_c": 47.5}],
   "cpufreq_hz": [2400000, 2400000]
@@ -47,6 +48,23 @@ sysprobe get-sys-data
 If files are missing, return an empty array instead of failing.
 
 **Task B: Filesystem watch**  
+Watch a given directory for create/modify/move/delete events for N seconds.
+Print one line per event. Match the following format 
+`%Y-%m-%dT%H:%M:%SZ <event> <dir>` (see example below).
+If directory doesn’t exist, create it first.
+
+```bash
+# Command
+sysprobe watch --dir /tmp/sysprobe --secs 10
+
+# Possible output
+2025-08-08T10:00:00Z CREATE /tmp/sysprobe/a
+2025-08-08T10:00:01Z MODIFY /tmp/sysprobe/a
+2025-08-08T10:00:02Z DELETE /tmp/sysprobe/a
+
+```
+**Notice** - 
+Use inotify (or similar). No busy loops.
 
 **Task C: Tracing (debugfs)**  
 
