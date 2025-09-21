@@ -48,7 +48,7 @@ sysprobe get-sys-data
 If files are missing, return an empty array instead of failing.
 
 **Task B: Filesystem watch**  
-Watch a given directory for create/modify/move/delete events for N seconds.
+Monitor a given directory for create/modify/move/delete events for N seconds.
 Print one line per event. Match the following format 
 `%Y-%m-%dT%H:%M:%SZ <event> <dir>` (see example below).
 If directory doesn’t exist, create it first.
