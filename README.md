@@ -22,6 +22,7 @@ You must pick any 3 tasks to implement in part 1, and 1 task in part 2 (doing mo
 ### Constrains
 - Use only standard libraries (no 3rd-party packages).
 - Be robust: we want your program to be able to run on every linux embedded board/server/computer without changes, so handle missing files/devices/permissions gracefully (don’t crash).
+- Because you will work with advanced internal features, I recommend working from a root user (or with `sudo su`)
 - Keep it small, readable, and comment where it matters.
 
 ## Tasks 
@@ -48,6 +49,8 @@ sysprobe get-sys-data
 If files are missing, return an empty array instead of failing.
 
 **Task B: Filesystem watch**  
+> From man: The inotify API provides a mechanism for monitoring filesystem events. Inotify can be used to monitor individual files, or to monitor directories. When a directory is monitored, inotify will return events for the directory itself, and for files inside the directory.  
+
 Monitor a given directory for create/modify/move/delete events for N seconds.
 Print one line per event. Match the following format 
 `%Y-%m-%dT%H:%M:%SZ <event> <dir>` (see example below).
@@ -63,12 +66,41 @@ sysprobe watch --dir /tmp/sysprobe --secs 10
 2025-08-08T10:00:02Z DELETE /tmp/sysprobe/a
 
 ```
-**Notice** - 
-Use inotify (or similar). No busy loops.
+**Notice** - Use inotify (or similar). No busy loops.
 
 **Task C: Tracing (debugfs)**  
+> Read yourself about kernel debugfs  
+
+Mount the kernel debugfs if is not already: `mount -t debugfs none /sys/kernel/debug`.  
+Inside tracing/events choose few events you would like to trace and enable them via the file system (only read/write to files are needed for enabling).  
+Then, read and print to the user the trace pipe for N seconds.  
+
+```bash
+# Command
+sysprobe trace --secs 2
+
+# Possible output
+sudo-3501    [003] ...1. 23908.815071: sys_write(fd: 7, buf: 5c8099305920, count: 64)
+cat-4110    [006] ...1. 23908.814982: sys_write(fd: 1, buf: 7a6c7ccd9000, count: 62)
+```
 
 **Task D: Init system**  
+Add a monitoring script to your system that will run on init.
+* Choose one of the tasks you implemented, and create an init script using it.
+* The script should automatically run after you restart your computer.
+* Its content should probe anything you choose from the previous tasks, and write the output to a file with a timestamp. This way, you will have a log file you can track through several boots.
+* The script can run for a few seconds and die, it does not need to be a daemon.
+* For example - on every boot, the command `sysprobe get-sys-data` will run, and these lines whould add to the file `sysprobe.log`:
+```
+System data for Wed May 18 06:45:59 PM EEST 2025:
+{
+ "thermal": [{"name": "zone0", "temp_c": 47.5}],
+  "cpufreq_hz": [2400000, 2400000]
+}
+```
+* You may use any linux method for init scripts, as long as it works :)
+
+To submit this task, give a commands files with explanations on how you made the script run as an init script, and the script itself.
 
 ### _Part 2 - Serial protocols (Choose 1 out of 3)_
 Serial protocols are used to communicate with small hardware devices, such as different sensors, microcontrollers and FPGA. For this part, you should read a little bit about one of the 3 most common protocols - UART, SPI & I2C. For each protocol there is a different way to simulate it so you can test your code.
