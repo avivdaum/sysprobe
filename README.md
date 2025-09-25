@@ -17,7 +17,7 @@ You will submit your source code, a README with installation and run instruction
 **Usage:** sysprobe <subcommand> [options]
 
 The subcommands will be chosen from the tasks list below.  
-You must pick any 3 tasks to implement in part 1, and 1 task in part 2 (doing more is optional but not required).
+You must pick any 3 tasks to implement (doing more is optional but not required).
 
 ### Constraints
 - Use only standard libraries (no third-party packages).
@@ -25,10 +25,9 @@ You must pick any 3 tasks to implement in part 1, and 1 task in part 2 (doing mo
 - Because you will work with advanced internal features, we recommend working as the root user (or with `sudo su`).
 - Keep it small, readable, and comment where necessary.
 
-## Tasks 
-### _Part 1 - General Linux for Embedded Systems (Choose 3 out of 4)_
+## Tasks (Choose 3 out of 4)
 
-**Task A: sysfs**  
+### Task A: sysfs
 
 > Sysfs is a pseudo-filesystem in Linux that provides a structured, virtual interface to view and modify kernel data, particularly for devices and drivers. Mounted at `/sys`, it exposes information about the kernel's device model through a file-based tree, allowing user-space programs to read device attributes and control kernel parameters.
 
@@ -48,7 +47,7 @@ sysprobe get-sys-data
 ```
 If files are missing, return an empty array instead of failing.
 
-**Task B: Filesystem watch**  
+### Task B: Filesystem watch  
 > From man: The inotify API provides a mechanism for monitoring filesystem events. Inotify can be used to monitor individual files or directories. When a directory is monitored, inotify will return events for the directory itself and for files inside the directory.  
 
 Monitor a given directory for create/modify/move/delete events for N seconds.
@@ -68,7 +67,7 @@ sysprobe watch --dir /tmp/sysprobe --secs 10
 ```
 **Notice** - Use inotify (or similar). No busy loops.
 
-**Task C: Tracing (debugfs)**  
+### Task C: Tracing (debugfs)  
 > Read about kernel debugfs  
 
 Mount the kernel debugfs if it is not already mounted: `mount -t debugfs none /sys/kernel/debug`.  
@@ -84,7 +83,7 @@ sudo-3501    [003] ...1. 23908.815071: sys_write(fd: 7, buf: 5c8099305920, count
 cat-4110    [006] ...1. 23908.814982: sys_write(fd: 1, buf: 7a6c7ccd9000, count: 62)
 ```
 
-**Task D: Init system**  
+### Task D: Init system  
 Add a monitoring script to your system that will run on init.
 * Choose one of the tasks you implemented, and create an init script using it.
 * The script should automatically run after you restart your computer.
@@ -101,15 +100,6 @@ System data for Wed May 18 06:45:59 PM EEST 2025:
 * You may use any Linux method for init scripts, as long as it works :)
 
 To submit this task, provide a commands file with explanations on how you made the script run as an init script, and the script itself.
-
-### _Part 2 - Serial Protocols (Choose 1 out of 3)_
-Serial protocols are used to communicate with small hardware devices, such as sensors, microcontrollers, and FPGAs. For this part, read a little about one of the three most common protocols - UART, SPI, & I2C. For each protocol, there is a different way to simulate it so you can test your code.
-
-**Task E: UART**  
-
-**Task F: I2C**  
-
-**Task G: SPI**  
 
 ## Deliverables
 - Source code
