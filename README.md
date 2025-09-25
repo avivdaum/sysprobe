@@ -8,8 +8,8 @@ The program should demonstrate your ability to use Linux system features that ar
 You will implement several subcommands that inspect or interact with the system.
 You can work on any Linux platform with any distribution (we recommend using Ubuntu on a VM/WSL).
 
-No hardware or extra setup is required.
-You will submit your source code, a README with installation and run instructions, and any Linux configuration files if needed.
+No additional hardware or setup is required.
+Submit your source code, a README with installation and usage instructions, and any necessary Linux configuration files.
 
 ## Requirements
 **Program name**: `sysprobe`  
@@ -21,7 +21,7 @@ You must pick any 3 tasks to implement (doing more is optional but not required)
 
 ### Constraints
 - Use only standard libraries (no third-party packages).
-- Be robust: your program should run on any Linux embedded board/server/computer without changes, so handle missing files/devices/permissions gracefully (don’t crash).
+- Be robust: your program should run on any Linux embedded board/server/computer without modifications, so handle missing files/devices/permissions gracefully (don’t crash).
 - Because you will work with advanced internal features, we recommend working as the root user (or with `sudo su`).
 - Keep it small, readable, and comment where necessary.
 
@@ -33,7 +33,7 @@ You must pick any 3 tasks to implement (doing more is optional but not required)
 
 Provide the user of sysprobe with information about the hardware using sysfs.
 
-Find useful data about temperature and CPU, and display it in valid JSON (no need to match a specific format).  
+Find useful data about temperature and CPU, and display it as valid JSON (no need to match a specific format).  
 `Example` 
 ```bash
 # Command
@@ -53,7 +53,7 @@ If files are missing, return an empty array instead of failing.
 Monitor a given directory for create/modify/move/delete events for N seconds.
 Print one line per event. Match the following format:  
 `%Y-%m-%dT%H:%M:%SZ <event> <dir>` (see example below).
-If the directory doesn’t exist, create it first.
+If the directory does not exist, create it first.
 
 ```bash
 # Command
@@ -65,7 +65,7 @@ sysprobe watch --dir /tmp/sysprobe --secs 10
 2025-08-08T10:00:02Z DELETE /tmp/sysprobe/a
 
 ```
-**Notice** - Use inotify (or similar). No busy loops.
+**Notice:** Use inotify (or similar). No busy loops.
 
 ### Task C: Tracing (debugfs)  
 > Read about kernel debugfs  
@@ -97,9 +97,9 @@ System data for Wed May 18 06:45:59 PM EEST 2025:
   "cpufreq_hz": [2400000, 2400000]
 }
 ```
-* You may use any Linux method for init scripts, as long as it works :)
+You may use any Linux method for init scripts, as long as it works :) Add an explanation for why you chose the init manager you used.
 
-To submit this task, provide a commands file with explanations on how you made the script run as an init script, and the script itself.
+To submit this task, provide a commands file explaining how you made the script run as an init script, along with the script itself.
 
 ## Deliverables
 - Source code
